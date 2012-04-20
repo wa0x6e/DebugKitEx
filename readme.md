@@ -30,4 +30,4 @@ Available panels
 --
 
 ###Cache###
-![Cache Panel](screens/cache_panel.jpg)
+![Cache Panel](https://github.com/kamisama/DebugKitEx/blob/master/screens/cache_panel.jpg?raw=true)
