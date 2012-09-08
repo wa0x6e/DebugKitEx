@@ -18,10 +18,12 @@ Install
 ###Install the plugin###
 
 Drop the *DebugKitEx* folder in you *app/Plugin* directory, and load the extended panel, by editing your debugkit call (in your *AppController.php* probably)
-	
+
+```php	
 	var $components = array('DebugKit.Toolbar' => array(
-   	 'panels' => array('DebugKit.Cache', 'DebugKitEx.Nosql) // Load only what you want
+   	 'panels' => array('DebugKit.Cache', 'DebugKitEx.Nosql', 'DebugKitEx.Resque') // Load only what you want
 	));
+```
 
 Enabling each panels requires some additionals step, since logging functions are not available in the core.
 
@@ -39,11 +41,19 @@ This class implements additionals method to logs the cache activities, the cache
 ###NoSql###
 ![NoSql Panel](https://github.com/kamisama/DebugKitEx/blob/master/screens/nosql_panel.jpg?raw=true)
 
+
 ####Install the nosql datasource layer####
 
 The NoSql panel will only works with one of my other plugin, see its [page](https://github.com/kamisama/CakePHP-NoSQL-Datasource) on how to install and use it.
 
+###Resque###
+
+To use with [CakeResque](http://cakeresque.kamisama.me/)
+
 ##Changelog##
+
+####Ver 2.2.1 (2012-09-08)####
+* Add ResqueJob Panel, to display jobs enqueuing with [CakeResque](http://cakeresque.kamisama.me/)
 
 ####Ver 2.2.0 (2012-07-01)####
 * Update plugin for DebugKit 2.2 and for CakePHP 2.2 (requires at least cakephp 2.2)
