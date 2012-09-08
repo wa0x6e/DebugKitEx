@@ -31,5 +31,6 @@
  */
 class NosqlPanel extends DebugPanel
 {
+
 	public $plugin = 'DebugKitEx';
 }

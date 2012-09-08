@@ -16,7 +16,7 @@
  * Redistributions of files must retain the above copyright notice.
  *
  * @copyright 	Copyright (c) 2012, Wan Chen aka Kamisama
- * @link 		http://cakephp.org CakePHP(tm) Project
+ * @link 		https://github.com/kamisama/DebugKitEx
  * @package 	DebugKitEx
  * @version 	0.1
  * @license 	MIT License (http://www.opensource.org/licenses/mit-license.php)
@@ -31,5 +31,6 @@
  */
 class CachePanel extends DebugPanel
 {
+
 	public $plugin = 'DebugKitEx';
 }
