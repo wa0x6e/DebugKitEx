@@ -63,12 +63,10 @@ class Cache {
  * @var array
  */
 	protected static $_engines = array();
-	
-	
-	protected static $_logs = array();
-	
-	protected static $_maxLogs = 200;
 
+	protected static $_logs = array();
+
+	protected static $_maxLogs = 200;
 
 /**
  * Set the cache configuration to use.  config() can
@@ -143,9 +141,9 @@ class Cache {
 		} elseif ($settings = self::set(self::$_config[$name], null, $name)) {
 			self::$_config[$name] = $settings;
 		}
-		
+
 		self::$_logs[$name] = array();
-		
+
 		return compact('engine', 'settings');
 	}
 
@@ -318,9 +316,7 @@ class Cache {
 				E_USER_WARNING
 			);
 		}
-		
-		
-		
+
 		return $success;
 	}
 
@@ -345,7 +341,7 @@ class Cache {
  */
 	public static function read($key, $config = 'default') {
 		$settings = self::settings($config);
-		
+
 		if (empty($settings)) {
 			return false;
 		}
@@ -356,7 +352,7 @@ class Cache {
 		if (!$key) {
 			return false;
 		}
-		
+
 		$result = self::$_engines[$config]->read($settings['prefix'] . $key);
 		self::__logActivity($config, 'read', $key, ($result === false) ? false : true);
 		return $result;
@@ -473,7 +469,7 @@ class Cache {
 		self::set(null, $config);
 		return $success;
 	}
-	
+
 /**
  * Delete all keys from the cache belonging to the same group.
  *
@@ -516,34 +512,29 @@ class Cache {
 		}
 		return array();
 	}
-	
-	
-	/**
-	 * Log a cache activity
-	 *
-	 * @param string $config
-	 * @param string $type cache activity type
-	 * @param string $key
-	 * @param bool $success If the cache action was a hit or not
-	 */
-	private static function __logActivity($config, $type, $key, $success)
-	{
+
+/**
+ * Log a cache activity
+ *
+ * @param string $config
+ * @param string $type cache activity type
+ * @param string $key
+ * @param bool $success If the cache action was a hit or not
+ */
+	private static function __logActivity($config, $type, $key, $success) {
 		self::$_logs[$config][] = array('type' => $type, 'key' => $key, 'success' => $success);
 		if (count(self::$_logs[$config]) > self::$_maxLogs) {
 			array_shift(self::$_logs[$config]);
 		}
 	}
-	
-	
-	/**
-	 * Return the log for a given config
-	 *
-	 * @param string $config Config name
-	 */
-	public static function logs($config = 'default')
-	{
+
+/**
+ * Return the log for a given config
+ *
+ * @param string $config Config name
+ */
+	public static function logs($config = 'default') {
 		return self::$_logs[$config];
 	}
 
 }
-
