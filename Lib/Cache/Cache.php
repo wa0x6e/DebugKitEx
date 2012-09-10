@@ -68,6 +68,10 @@ class Cache {
 
 	protected static $_maxLogs = 200;
 
+	protected static $_queriesCount = array('total' => 0, 'read' => 0, 'write' => 0);
+
+	protected static $_queriesTime = 0;
+
 /**
  * Set the cache configuration to use.  config() can
  * both create new configurations, return the settings for already configured
@@ -264,6 +268,7 @@ class Cache {
  * @return void
  */
 	public static function gc($config = 'default', $expires = null) {
+		self::$_queriesCount['total']++;
 		self::$_engines[$config]->gc($expires);
 	}
 
@@ -302,8 +307,9 @@ class Cache {
 			return false;
 		}
 
+		$start = microtime(true);
 		$success = self::$_engines[$config]->write($settings['prefix'] . $key, $value, $settings['duration']);
-		self::__logActivity($config, 'write', $key, $success);
+		self::__logActivity($config, 'write', $key, $success, $start);
 		self::set(null, $config);
 		if ($success === false && $value !== '') {
 			trigger_error(
@@ -316,7 +322,8 @@ class Cache {
 				E_USER_WARNING
 			);
 		}
-
+		self::$_queriesCount['total']++;
+		self::$_queriesCount['write']++;
 		return $success;
 	}
 
@@ -353,8 +360,12 @@ class Cache {
 			return false;
 		}
 
+		$start = microtime(true);
 		$result = self::$_engines[$config]->read($settings['prefix'] . $key);
-		self::__logActivity($config, 'read', $key, ($result === false) ? false : true);
+		self::__logActivity($config, 'read', $key, ($result === false) ? false : true, $start);
+
+		self::$_queriesCount['total']++;
+		self::$_queriesCount['read']++;
 		return $result;
 	}
 
@@ -381,9 +392,14 @@ class Cache {
 		if (!$key || !is_integer($offset) || $offset < 0) {
 			return false;
 		}
+		$start = microtime(true);
 		$success = self::$_engines[$config]->increment($settings['prefix'] . $key, $offset);
-		self::__logActivity($config, 'increment', $key, $success);
+		self::__logActivity($config, 'increment', $key, $success, $start);
 		self::set(null, $config);
+
+		self::$_queriesCount['total']++;
+		self::$_queriesCount['write']++;
+
 		return $success;
 	}
 
@@ -410,9 +426,14 @@ class Cache {
 		if (!$key || !is_integer($offset) || $offset < 0) {
 			return false;
 		}
+		$start = microtime(true);
 		$success = self::$_engines[$config]->decrement($settings['prefix'] . $key, $offset);
-		self::__logActivity($config, 'decrement', $key, $success);
+		self::__logActivity($config, 'decrement', $key, $success, $start);
 		self::set(null, $config);
+
+		self::$_queriesCount['total']++;
+		self::$_queriesCount['write']++;
+
 		return $success;
 	}
 
@@ -447,9 +468,13 @@ class Cache {
 			return false;
 		}
 
+		$start = microtime(true);
 		$success = self::$_engines[$config]->delete($settings['prefix'] . $key);
-		self::__logActivity($config, 'delete', $key, $success);
+		self::__logActivity($config, 'delete', $key, $success, $start);
 		self::set(null, $config);
+
+		self::$_queriesCount['total']++;
+
 		return $success;
 	}
 
@@ -464,9 +489,13 @@ class Cache {
 		if (!self::isInitialized($config)) {
 			return false;
 		}
+		$start = microtime(true);
 		$success = self::$_engines[$config]->clear($check);
-		self::__logActivity($config, 'clear', '', $success);
+		self::__logActivity($config, 'clear', '', $success, $start);
 		self::set(null, $config);
+
+		self::$_queriesCount['total']++;
+
 		return $success;
 	}
 
@@ -483,6 +512,9 @@ class Cache {
 		}
 		$success = self::$_engines[$config]->clearGroup($group);
 		self::set(null, $config);
+
+		self::$_queriesCount['total']++;
+
 		return $success;
 	}
 
@@ -520,9 +552,19 @@ class Cache {
  * @param string $type cache activity type
  * @param string $key
  * @param bool $success If the cache action was a hit or not
+ * @param int $startTime timestamp
  */
-	private static function __logActivity($config, $type, $key, $success) {
-		self::$_logs[$config][] = array('type' => $type, 'key' => $key, 'success' => $success);
+	private static function __logActivity($config, $type, $key, $success, $startTime) {
+		$queryTime = round((microtime(true) - $startTime) * 1000, 2);
+		self::$_logs[$config][] = array(
+			'type' => $type,
+			'key' => $key,
+			'success' => $success,
+			'time' => $queryTime
+		);
+
+		self::$_queriesTime += $queryTime;
+
 		if (count(self::$_logs[$config]) > self::$_maxLogs) {
 			array_shift(self::$_logs[$config]);
 		}
@@ -533,8 +575,12 @@ class Cache {
  *
  * @param string $config Config name
  */
-	public static function logs($config = 'default') {
-		return self::$_logs[$config];
+	public static function getLogs($config = 'default') {
+		return array(
+			'count' => self::$_queriesCount,
+			'time' => self::$_queriesTime,
+			'logs' => self::$_logs[$config]
+		);
 	}
 
 }

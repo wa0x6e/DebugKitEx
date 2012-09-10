@@ -18,10 +18,12 @@
 
 	$configs = Cache::configured();
 	$content = array();
+	$stats = Cache::getLogs();
 	foreach($configs as $config)
 	{
 		$engine = Cache::settings($config);
-		$content[$config] = array('settings' => $engine, 'logs' => Cache::logs($config));
+		$logs = Cache::getLogs($config);
+		$content[$config] = array('settings' => $engine, 'logs' => $logs['logs']);
 	}
 
 ?>
@@ -31,12 +33,22 @@
 	.set{color:#999;font-style:italic}
 	.delete{color: #e8665e}
 	.missed td{background-color: #ff6167!important;color:#fff}
+	.meter{width: 200px; display:block; height: 5px; background:green;position:relative;border:0;}
+	.meter .cache-writes{background:red;display:block; height:5px;position:absolute; right:0;}
+	h3 small {font-size: 80%; color: gray;}
 </style>
 
 <h2><?php echo __d('debug_kit_ex', 'Cache Logs')?></h2>
 <?php if (!empty($content)) : ?>
+
+	<h3><?php
+		echo __d('debug_kit_ex', 'Total queries : %s, in %s ms', $stats['count']['total'], $stats['time']);
+		echo '<span class="meter"><span class="cache-writes" style="width:' . ($stats['count']['write']/$stats['count']['read']*100) .'%;"></span></span>';
+		echo __d('debug_kit_ex', ' <small>(%s reads/%s writes)</small>', $stats['count']['read'], $stats['count']['write']); ?></h3>
+
 	<?php foreach ($content as $name => $datas): ?>
 	<div class="sql-log-panel-query-log">
+
 		<h4><?php echo $name ?> <span class="set">(<?php echo $datas['settings']['engine']; ?>)</span></h4>
 		<?php
 
@@ -46,6 +58,7 @@
 				echo '<tr>';
 				echo '<th>'.__d('debug_kit_ex', 'Type').'</th>';
 				echo '<th>'.__d('debug_kit_ex', 'Keyname').'</th>';
+				echo '<th>'.__d('debug_kit_ex', 'Took (ms)').'</th>';
 				echo '</tr>';
 
 				foreach($datas['logs'] as $log)
@@ -53,6 +66,7 @@
 					echo '<tr class="' . (!$log['success'] ? 'missed' : '') . ' ' . $log['type'] . '">';
 					echo '<td class="type">'.$log['type']. (!$log['success'] ? ' (missed)' : '') .'</td>';
 					echo '<td>'.$log['key']. '</td>';
+					echo '<td>'.$log['time']. '</td>';
 					echo '</tr>';
 				}
 

@@ -52,6 +52,9 @@ To use with [CakeResque](http://cakeresque.kamisama.me/)
 
 ##Changelog##
 
+####Ver 2.2.3 (2012-09-10)####
+* Add queries time and queries count stats
+
 ####Ver 2.2.2 (2012-09-09)####
 * Update Resque Job panel to display query time (require [CakePHP-NoSQL-Datasource](https://github.com/kamisama/CakePHP-NoSQL-Datasource) 0.4)
 
