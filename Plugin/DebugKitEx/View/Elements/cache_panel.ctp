@@ -7,10 +7,12 @@
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright 	Copyright (c) 2012, Wan Chen aka Kamisama
- * @link 		http://cakephp.org CakePHP(tm) Project
+ * @author 		Wan Qi Chen <kami@kamisama.me>
+ * @copyright 	Copyright 2012, Wan Qi Chen <kami@kamisama.me>
+ * @link 		https://github.com/kamisama/DebugKitEx
  * @package 	DebugKitEx
- * @version 	0.1
+ * @subpackage 	DebugKitEx.View.Elements
+ * @since 		2.2.0
  * @license 	MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
@@ -21,7 +23,7 @@
 		$engine = Cache::settings($config);
 		$content[$config] = array('settings' => $engine, 'logs' => Cache::logs($config));
 	}
-	
+
 ?>
 <style type="text/css">
 	.debug_ex-table .type{width: 20%;font-weight: bold}
@@ -37,7 +39,7 @@
 	<div class="sql-log-panel-query-log">
 		<h4><?php echo $name ?> <span class="set">(<?php echo $datas['settings']['engine']; ?>)</span></h4>
 		<?php
-			
+
 			if (!empty($datas['logs']))
 			{
 				echo '<table class="debug-table debug_ex-table">';
@@ -45,7 +47,7 @@
 				echo '<th>'.__d('debug_kit_ex', 'Type').'</th>';
 				echo '<th>'.__d('debug_kit_ex', 'Keyname').'</th>';
 				echo '</tr>';
-				
+
 				foreach($datas['logs'] as $log)
 				{
 					echo '<tr class="' . (!$log['success'] ? 'missed' : '') . ' ' . $log['type'] . '">';
@@ -53,12 +55,12 @@
 					echo '<td>'.$log['key']. '</td>';
 					echo '</tr>';
 				}
-				
+
 				echo '</table>';
 			}
 			else echo '<p class="info">' .__d('debug_kit_ex', 'No cache activities') . '</p>';
 		 ?>
-		
+
 	</div>
 	<?php endforeach; ?>
 <?php else:

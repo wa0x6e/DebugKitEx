@@ -7,11 +7,12 @@
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright 	Copyright (c) 2012, Wan Chen (Kamisama)
+ * @author 		Wan Qi Chen <kami@kamisama.me>
+ * @copyright 	Copyright 2012, Wan Qi Chen <kami@kamisama.me>
  * @link 		https://github.com/kamisama/DebugKitEx
  * @package 	DebugKitEx
  * @subpackage 	DebugKitEx.View.Elements
- * @version 	0.1
+ * @since 		2.2.1
  * @license 	MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
