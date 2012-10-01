@@ -34,4 +34,25 @@ class ResquePanel extends DebugPanel
 {
 
 	public $plugin = 'DebugKitEx';
+
+	public $priority = 0;
+
+	/**
+	 * Prepare output vars before Controller Rendering.
+	 *
+	 * @param object $controller Controller reference.
+	 * @return void
+	 */
+	public function beforeRender(Controller $controller) {
+		$logs =  CakeResque::$logs;
+		$count = 0;
+		foreach ($logs as $l) {
+			$count += count($l);
+		}
+
+		if ($this->priority > 0) {
+			$this->title = __dn('debug_kit_ex', '<b>%d</b> job', '<b>%d</b> jobs', $count, $count);
+		}
+		return $logs;
+	}
 }

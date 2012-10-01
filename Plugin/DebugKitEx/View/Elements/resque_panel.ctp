@@ -16,41 +16,46 @@
  * @license 	MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-	$content = CakeResque::$logs;
 
 ?>
-<style>
-	.debug_ex-table td
-	{
-		vertical-align: top;
-	}
-</style>
 <h2><?php echo __d('debug_kit_ex', 'Resque Jobs Logs')?></h2>
 <?php if (!empty($content)) : ?>
 	<?php foreach ($content as $queue => $jobs): ?>
 	<div class="sql-log-panel-query-log">
-		<h4>Queue: <?php echo $queue ?></h4>
+		<div class="head-bloc"><h4 title="<?php echo $queue ?> queue"><?php echo $queue ?></h4></div>
 		<?php
 
 			if (!empty($jobs))
 			{
 				echo '<table class="debug-table debug_ex-table">';
 				echo '<tr>';
+				echo '<th>'.__d('debug_kit_ex', 'Job Id').'</th>';
 				echo '<th>'.__d('debug_kit_ex', 'Job Class').'</th>';
 				echo '<th>'.__d('debug_kit_ex', 'Method').'</th>';
-				echo '<th>'.__d('debug_kit_ex', 'Arguments').'</th>';
 				echo '<th>'.__d('debug_kit_ex', 'From').'</th>';
 				echo '</tr>';
 
+				$totalJobs = 0;
 				foreach($jobs as $job)
 				{
 					echo '<tr>';
+					echo '<td>#'.$job['jobId']. '</td>';
 					echo '<td>'.$job['class']. '</td>';
 					echo '<td>'.$job['method']. '</td>';
-					echo '<td><code>'.var_export($job['args'], true). '</code></td>';
-					echo '<td>' . sprintf('%s <span class="trace_line">line %s</span>', str_replace(APP, '', $job['caller'][0]['file']), $job['caller'][0]['line']) . '</td>';
+					echo '<td>' . sprintf('%s <small class="trace_line">line %s</small>', str_replace(APP, '', $job['caller'][0]['file']), $job['caller'][0]['line']);
+					echo '<pre class="code-on-demand"><code>'.var_export($job['args'], true). '</code></pre>';
+					echo '</td>';
 					echo '</tr>';
+
+					$totalJobs++;
+
 				}
+
+				echo '<tr class="table-summary">';
+				echo '<td colspan=4 style="text-align:center">';
+				echo __dn('debug_kit_ex', '%d job', '%d jobs', $totalJobs, $totalJobs);
+				echo '</td>';
+				echo '</tr>';
 
 				echo '</table>';
 			}

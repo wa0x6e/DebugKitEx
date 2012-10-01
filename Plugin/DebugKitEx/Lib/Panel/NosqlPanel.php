@@ -54,10 +54,12 @@ class NosqlPanel extends DebugPanel
 			$time += $logs['time'];
 		}
 
-		if ($count === 0) {
-			$this->title = __d('debug_kit_ex', '<b>%d</b> NoSql', $count);
-		} else {
-			$this->title = __d('debug_kit_ex', '<b>%dms / %d</b> NoSql', $time, $count);
+		if ($this->priority > 0) {
+			if ($count === 0) {
+				$this->title = __d('debug_kit_ex', '<b>%d</b> NoSql', $count);
+			} else {
+				$this->title = __d('debug_kit_ex', '<b>%dms / %d</b> NoSql', $time, $count);
+			}
 		}
 		return $content;
 	}

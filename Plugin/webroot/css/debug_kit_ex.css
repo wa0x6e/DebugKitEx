@@ -1,5 +1,9 @@
 /* Debug Kit Ex */
 
+#debug-kit-toolbar .debug-table td {
+	padding: 5px;
+}
+
 #debug-kit-toolbar td.type {
 	width: 80px
 }
@@ -168,4 +172,29 @@ tr.write td {
 
 #debug-kit-toolbar .nav li:last-child {
 	border-radius: 0 3px 3px 0;
+}
+
+.debug_ex-table td {
+	vertical-align: top;
+}
+
+#debug-kit-toolbar .code-on-demand {
+	height: 7px;
+	padding: 5px;
+	border: 1px solid #bbb;
+	border-radius: 3px;
+	background-color: #fff;
+	overflow: hidden;
+	white-space: normal;
+	margin: 5px;
+}
+
+#debug-kit-toolbar .code-on-demand:hover {
+	display: block;
+	height: auto;
+}
+
+#debug-kit-toolbar .trace_line {
+	color: #999;
+	font-size: 10px;
 }

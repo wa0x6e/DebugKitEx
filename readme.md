@@ -54,9 +54,13 @@ The NoSql panel will only works with one of my other plugin, see its [page](http
 
 ###Resque###
 
+![Cache Panel](https://raw.github.com/kamisama/DebugKitEx/gh-pages/img/resque-panel.png)
 To use with [CakeResque](http://cakeresque.kamisama.me/)
 
 ##Changelog##
+
+####Ver 2.2.6 (2012-10-01)####
+* New UI for Resque Panel
 
 ####Ver 2.2.5 (2012-10-01)####
 * New UI for NoSql panel
