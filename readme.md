@@ -37,7 +37,7 @@ Available panels
 --
 
 ###Cache###
-![Cache Panel](https://github.com/kamisama/DebugKitEx/blob/master/screens/cache_panel.jpg?raw=true)
+![Cache Panel](https://raw.github.com/kamisama/DebugKitEx/gh-pages/img/cache-panel.png)
 
 ####Install the custom cache adapter####
 
@@ -45,7 +45,7 @@ Since redefining core class in a plugin is impossible, you have to drop the *Lib
 This class implements additionals method to logs the cache activities, the cache panel will not works without it.
 
 ###NoSql###
-![NoSql Panel](https://github.com/kamisama/DebugKitEx/blob/master/screens/nosql_panel.jpg?raw=true)
+![NoSql Panel](https://raw.github.com/kamisama/DebugKitEx/gh-pages/img/nosql-panel.png)
 
 
 ####Install the nosql datasource layer####
@@ -59,7 +59,7 @@ To use with [CakeResque](http://cakeresque.kamisama.me/)
 ##Changelog##
 
 ####Ver 2.2.4 (2012-09-30)####
-* New UI for Cache panel
+* New UI for Cache panel, require the latest debugkit plugin
 
 ####Ver 2.2.3 (2012-09-10)####
 * Add queries time and queries count stats for NoSql panel
