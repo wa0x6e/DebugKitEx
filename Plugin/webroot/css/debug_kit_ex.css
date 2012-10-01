@@ -4,7 +4,7 @@
 	width: 80px
 }
 
-#debug-kit-toolbar td.time {
+#debug-kit-toolbar td.time, #debug-kit-toolbar th.time {
 	width: 80px;
 	text-align: right;
 	padding-right: 8px;

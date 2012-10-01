@@ -18,22 +18,49 @@
  * @license 	MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-	$logs = NoSql::Redis()->getLogs();
 	$headers = array('Query', 'Took (ms)');
 
 ?>
-<style type="text/css">
-	.no-sql-query td {font-family:Monaco,'Consolas',"Courier New",Courier,monospaced}
-</style>
 <h2><?php echo __d('debug_kit_ex', 'NoSql Logs')?></h2>
-<?php if (!empty($logs['logs'])) : ?>
+<?php if (!empty($content)) :
+	foreach ($content as $name => $logs) :
+?>
 
 	<div class="sql-log-panel-query-log no-sql-query">
-		<h4><?php echo __d('debug_kit_ex', 'Redis Log');?></h4>
-		<h5><?php echo __d('debug_kit_ex', 'Total time : %s ms <br />Total Queries: %s queries', $logs['time'], $logs['count']);?></h5>
-		<?php echo $this->Toolbar->table($logs['logs'], $headers, array('title' => 'NOSQL Log Redis')); ?>
+		<div class="head-bloc">
+			<h4><?php echo __d('debug_kit_ex', '%s Log', $name);?></h4>
+		</div>
+
+		<?php
+			echo '<table class="debug-table">';
+			echo '<tr>';
+			echo '<th>'.__d('debug_kit_ex', 'Command').'</th>';
+			echo '<th class="time">'.__d('debug_kit_ex', 'Took (ms)').'</th>';
+			echo '</tr>';
+
+			foreach($logs['logs'] as $log)
+			{
+				echo '<tr>';
+				echo '<td>'.$log['command'].'</td>';
+				echo '<td class="time">'. $log['time']. '</td>';
+				echo '</tr>';
+			}
+
+
+			echo '<tr class="table-summary">';
+			echo '<td>';
+			echo __dn('debug_kit_ex', '%s query', '%s queries', $logs['count'], $logs['count']);
+			echo '</td>';
+			echo '<td class="time">';
+			echo $logs['time'];
+			echo ' ms</td>';
+			echo '</tr>';
+
+			echo '</table>';
+
+		?>
 	</div>
 
-<?php else:
+<?php endforeach; else:
 	echo $this->Toolbar->message('', __d('debug_kit_ex', 'No Nosql activities'));
 endif; ?>

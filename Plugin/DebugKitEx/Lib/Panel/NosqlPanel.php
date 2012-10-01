@@ -34,4 +34,31 @@ class NosqlPanel extends DebugPanel
 {
 
 	public $plugin = 'DebugKitEx';
+
+	public $priority = 0;
+
+	public $css = array('DebugKitEx.debug_kit_ex.css');
+
+	/**
+	 * Prepare output vars before Controller Rendering.
+	 *
+	 * @param object $controller Controller reference.
+	 * @return void
+	 */
+	public function beforeRender(Controller $controller) {
+		$content = NoSql::getLogs();
+		$count = 0;
+		$time = 0;
+		foreach ($content as $logs) {
+			$count += $logs['count'];
+			$time += $logs['time'];
+		}
+
+		if ($count === 0) {
+			$this->title = __d('debug_kit_ex', '<b>%d</b> NoSql', $count);
+		} else {
+			$this->title = __d('debug_kit_ex', '<b>%dms / %d</b> NoSql', $time, $count);
+		}
+		return $content;
+	}
 }

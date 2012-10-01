@@ -62,7 +62,7 @@
 				echo '<tr>';
 				echo '<th>'.__d('debug_kit_ex', 'Type').'</th>';
 				echo '<th>'.__d('debug_kit_ex', 'Keyname').'</th>';
-				echo '<th>'.__d('debug_kit_ex', 'Took (ms)').'</th>';
+				echo '<th class="time">'.__d('debug_kit_ex', 'Took (ms)').'</th>';
 				echo '</tr>';
 
 				$totalTime = 0;

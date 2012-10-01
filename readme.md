@@ -58,6 +58,10 @@ To use with [CakeResque](http://cakeresque.kamisama.me/)
 
 ##Changelog##
 
+####Ver 2.2.5 (2012-10-01)####
+* New UI for NoSql panel
+* NoSql panel can display more than one Nosql engine
+
 ####Ver 2.2.4 (2012-09-30)####
 * New UI for Cache panel, require the latest debugkit plugin
 
