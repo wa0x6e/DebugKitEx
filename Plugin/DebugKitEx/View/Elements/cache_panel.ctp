@@ -16,40 +16,44 @@
  * @license 	MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-	$configs = Cache::configured();
-	$content = array();
-	$stats = Cache::getLogs();
-	foreach($configs as $config)
-	{
-		$engine = Cache::settings($config);
-		$logs = Cache::getLogs($config);
-		$content[$config] = array('settings' => $engine, 'logs' => $logs['logs']);
-	}
-
 ?>
-<style type="text/css">
-	.debug_ex-table .type{width: 20%;font-weight: bold}
-	.read{color: #999}
-	.set{color:#999;font-style:italic}
-	.delete{color: #e8665e}
-	.missed td{background-color: #ff6167!important;color:#fff}
-	.meter{width: 200px; display:block; height: 5px; background:green;position:relative;border:0;}
-	.meter .cache-writes{background:red;display:block; height:5px;position:absolute; right:0;}
-	h3 small {font-size: 80%; color: gray;}
-</style>
-
 <h2><?php echo __d('debug_kit_ex', 'Cache Logs')?></h2>
 <?php if (!empty($content)) : ?>
 
+	<div class="head3-bloc">
 	<h3><?php
-		echo __d('debug_kit_ex', 'Total queries : %s, in %s ms', $stats['count']['total'], $stats['time']);
-		echo '<span class="meter"><span class="cache-writes" style="width:' . ($stats['count']['write']/$stats['count']['read']*100) .'%;"></span></span>';
-		echo __d('debug_kit_ex', ' <small>(%s reads/%s writes)</small>', $stats['count']['read'], $stats['count']['write']); ?></h3>
+		echo __d('debug_kit_ex', 'Total queries : %s, in %s ms', $content['stats']['count']['total'], $content['stats']['time']);
+		echo '</h3>';
+		echo '<span class="meter"><span class="cache-writes" style="width:' . ($content['stats']['count']['write']/$content['stats']['count']['total']*100) .'%;"></span></span>';
+		echo ' <small>(<b>';
+		echo $content['stats']['count']['read'];
+		echo '</b> ';
+		echo  __dn('debug_kit_ex', 'read', 'reads', $content['stats']['count']['read']);
+		echo ' / <b>';
+		echo $content['stats']['count']['write'];
+		echo '</b> ';
+		echo  __dn('debug_kit_ex', 'write', 'writes', $content['stats']['count']['write']);
+		echo ')</small>';
+		?>
+	</div>
 
-	<?php foreach ($content as $name => $datas): ?>
+	<ul class="nav">
+		<?php
+		$keys = array_keys($content['cache']);
+		foreach($keys as $key) {
+			if (!empty($content['cache'][$key]['logs'])) {
+				echo '<li><a href="#_cache-'.Inflector::slug($key).'">'.$key.' (' . count($content['cache'][$key]['logs']) . ')</a></li>';
+			}
+		}?>
+	</ul>
+
+	<?php foreach ($content['cache'] as $name => $datas): ?>
 	<div class="sql-log-panel-query-log">
 
-		<h4><?php echo $name ?> <span class="set">(<?php echo $datas['settings']['engine']; ?>)</span></h4>
+		<div class="head-bloc" id="_cache-<?php echo Inflector::slug($name); ?>">
+			<span class="cache-engine"><?php echo $datas['settings']['engine']; ?></span>
+			<h4><?php echo $name ?></h4>
+		</div>
 		<?php
 
 			if (!empty($datas['logs']))
@@ -61,14 +65,31 @@
 				echo '<th>'.__d('debug_kit_ex', 'Took (ms)').'</th>';
 				echo '</tr>';
 
+				$totalTime = 0;
+				$totalRead = 0;
+				$totalWrite = 0;
 				foreach($datas['logs'] as $log)
 				{
 					echo '<tr class="' . (!$log['success'] ? 'missed' : '') . ' ' . $log['type'] . '">';
-					echo '<td class="type">'.$log['type']. (!$log['success'] ? ' (missed)' : '') .'</td>';
-					echo '<td>'.$log['key']. '</td>';
-					echo '<td>'.$log['time']. '</td>';
+					echo '<td class="type"><span class="label-'.$log['type'].'">'.$log['type'] .'</span></td>';
+					echo '<td>'.$log['key']. ($log['success'] ? '' : ' <span style="float:right">(missed)</span>') . '</td>';
+					echo '<td class="time">'. $log['time']. '</td>';
 					echo '</tr>';
+
+					$totalTime += $log['time'];
+					${'total' . ucwords($log['type'])}++;
 				}
+
+
+				echo '<tr class="table-summary">';
+				echo '<td colspan=2>';
+				echo '<span class="label-read">'.$totalRead.'</span> ';
+				echo '<span class="label-write">'.$totalWrite.'</span>';
+				echo '</td>';
+				echo '<td class="time">';
+				echo $totalTime;
+				echo ' ms</td>';
+				echo '</tr>';
 
 				echo '</table>';
 			}

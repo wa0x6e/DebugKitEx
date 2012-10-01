@@ -34,4 +34,45 @@ class CachePanel extends DebugPanel
 {
 
 	public $plugin = 'DebugKitEx';
+
+	/**
+	 * Not used yet
+	 *
+	 * Since 2.2.4
+	 * @var int
+	 */
+	public $priority = 0;
+
+	public $css = array('DebugKitEx.debug_kit_ex.css');
+
+
+	/**
+	 * Prepare output vars before Controller Rendering.
+	 *
+	 * @param object $controller Controller reference.
+	 * @return void
+	 */
+	public function beforeRender(Controller $controller) {
+		$configs = Cache::configured();
+		$content = array();
+		$content['stats'] = Cache::getLogs();
+		foreach($configs as $config)
+		{
+			$engine = Cache::settings($config);
+			$logs = Cache::getLogs($config);
+			$content['cache'][$config] = array('settings' => $engine, 'logs' => $logs['logs']);
+		}
+
+		ksort($content['cache']);
+
+		if ($this->priority > 0) {
+			if ($content['stats']['count'] === 0) {
+				$this->title = __d('debug_kit_ex', '<b>0</b> cache');
+			} else {
+				$this->title = __d('debug_kit_ex', '<b>%dms / %d</b> cache', round($content['stats']['time']), $content['stats']['count']['total']);
+			}
+		}
+
+		return $content;
+	}
 }
