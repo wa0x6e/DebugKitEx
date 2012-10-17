@@ -4,7 +4,7 @@
  *
  * Display NoSql Logs for the NoSql Datasource
  *
- * Copyright (c) 2012, Wan Chen aka Kamisama
+ * Copyright (c) 2012, Wan Qi Chen (kamisama)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
@@ -61,6 +61,9 @@
 		?>
 	</div>
 
-<?php endforeach; else:
+<?php endforeach;
+elseif ($content === null): ?>
+	<div class="alert-error">NoSql plugin not found</div>
+<?php else:
 	echo $this->Toolbar->message('', __d('debug_kit_ex', 'No Nosql activities'));
 endif; ?>

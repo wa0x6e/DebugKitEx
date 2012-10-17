@@ -46,6 +46,10 @@ class NosqlPanel extends DebugPanel
 	 * @return void
 	 */
 	public function beforeRender(Controller $controller) {
+		if (!class_exists('NoSql')) {
+			return null;
+		}
+
 		$content = NoSql::getLogs();
 		$count = 0;
 		$time = 0;
