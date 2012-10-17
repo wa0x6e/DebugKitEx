@@ -63,6 +63,8 @@
 
 	</div>
 	<?php endforeach; ?>
+<?php elseif ($content === null): ?>
+	<div class="alert-error">CakeResque plugin not found</div>
 <?php else:
 	echo $this->Toolbar->message('', __d('debug_kit_ex', 'No jobs activities'));
 endif; ?>
