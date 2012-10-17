@@ -55,17 +55,27 @@ class CachePanel extends DebugPanel
 	public function beforeRender(Controller $controller) {
 		$configs = Cache::configured();
 		$content = array();
-		$content['stats'] = Cache::getLogs();
+
+		if (method_exists('Cache', 'getLogs')) {
+			$content['stats'] = Cache::getLogs();
+		}
+
 		foreach($configs as $config)
 		{
 			$engine = Cache::settings($config);
-			$logs = Cache::getLogs($config);
+
+			if (method_exists('Cache', 'getLogs')) {
+				$logs = Cache::getLogs($config);
+			} else {
+				$logs['logs'] = array();
+			}
+
 			$content['cache'][$config] = array('settings' => $engine, 'logs' => $logs['logs']);
 		}
 
 		ksort($content['cache']);
 
-		if ($this->priority > 0) {
+		if ($this->priority > 0 && isset($content['stats'])) {
 			if ($content['stats']['count'] === 0) {
 				$this->title = __d('debug_kit_ex', '<b>0</b> cache');
 			} else {

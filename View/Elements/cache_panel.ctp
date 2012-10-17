@@ -2,12 +2,12 @@
 /**
  * DebugKitEx Cache Panel View
  *
- * Copyright (c) 2012, Wan Chen aka Kamisama
+ * Copyright (c) 2012, Wan Qi Chen
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @author 		Wan Qi Chen <kami@kamisama.me>
+ * @author      Wan Qi Chen <kami@kamisama.me>
  * @copyright 	Copyright 2012, Wan Qi Chen <kami@kamisama.me>
  * @link 		https://github.com/kamisama/DebugKitEx
  * @package 	DebugKitEx
@@ -18,7 +18,7 @@
 
 ?>
 <h2><?php echo __d('debug_kit_ex', 'Cache Logs')?></h2>
-<?php if (!empty($content)) : ?>
+<?php if (isset($content['stats'])) : ?>
 
 	<div class="head3-bloc">
 	<h3><?php
@@ -98,6 +98,10 @@
 
 	</div>
 	<?php endforeach; ?>
-<?php else:
+<?php elseif (!empty($content)) : ?>
+	<div class="alert-error"><strong>Cache class not found</strong><br/>
+		Copy the folder <code>app/Plugin/DebugKitEx/Lib/Cache</code> into <code>app/Lib</code>
+	</div>
+<?php else :
 	echo $this->Toolbar->message('Warning', __d('debug_kit_ex', 'No configured cache'));
 endif; ?>
