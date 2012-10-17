@@ -17,13 +17,29 @@ Install
 
 ###Install the plugin###
 
-Add the plugin to the list that CakePHP loads.
+#### Download the plugin
+
+Either with `git clone` or by downloading the archive.
+
+##### With Git clone
+
+	cd app/Plugin
+	git clone git://github.com/kamisama/DebugKitEx.git DebugKitEx
+	
+##### Download the archive
+
+[Download](https://github.com/kamisama/DebugKitEx/zipball/master) the latest release, and uncompress it in `app/Plugin`. Make sure the plugin folder is named *DebugKitEx*.
+
+
+#### Load the plugin into CakePHP
 
 ```php
 CakePlugin::load(array('DebugKit','DebugKitEx'));
 ```
 
-Drop the *DebugKitEx* folder in you *app/Plugin* directory, and load the extended panel, by editing your debugkit call (in your *AppController.php* probably)
+#### Load the panels
+
+To load the extended panel, edit your debugkit call (in your *AppController.php* probably)
 
 ```php	
 	var $components = array('DebugKit.Toolbar' => array(
@@ -41,7 +57,7 @@ Available panels
 
 ####Install the custom cache adapter####
 
-Since redefining core class in a plugin is impossible, you have to drop the *app/Plugin/DebugKitEx/Lib/Cache/Cache.php* file in *app/Lib/Cache/* (create the folder if necessary). You application will use this Cache class instead of the one in the core, the main benefit is that you don't need to change anything in your calls to the Cache class.  
+Since redefining core class in a plugin is impossible, you have to drop the `app/Plugin/DebugKitEx/Lib/Cache/Cache.php` file in `app/Lib/Cache/` (create the folder if necessary). You application will use this Cache class instead of the one in the core, the main benefit is that you don't need to change anything in your calls to the Cache class.  
 This class implements additionals method to logs the cache activities, the cache panel will not works without it.
 
 ###NoSql###
