@@ -2,12 +2,12 @@
 /**
  * DebugKitEx Cache Panel View
  *
- * Copyright (c) 2012, Wan Qi Chen
+ * Copyright (c) 2012, Wan Chen aka Kamisama
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @author      Wan Qi Chen <kami@kamisama.me>
+ * @author 		Wan Qi Chen <kami@kamisama.me>
  * @copyright 	Copyright 2012, Wan Qi Chen <kami@kamisama.me>
  * @link 		https://github.com/kamisama/DebugKitEx
  * @package 	DebugKitEx
