@@ -18,8 +18,8 @@
  * @license 	MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-	$headers = array('Query', 'Took (ms)');
-
+$headers = array('Query', 'Took (ms)');
+$this->start('panelContent');
 ?>
 <h2><?php echo __d('debug_kit_ex', 'NoSql Logs')?></h2>
 <?php if (!empty($content)) :
@@ -66,4 +66,5 @@ elseif ($content === null): ?>
 	<div class="alert-error">NoSql plugin not found</div>
 <?php else:
 	echo $this->Toolbar->message('', __d('debug_kit_ex', 'No Nosql activities'));
-endif; ?>
+endif;
+$this->end('panelContent');

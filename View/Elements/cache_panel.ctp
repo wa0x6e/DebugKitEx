@@ -15,7 +15,7 @@
  * @since 		2.2.0
  * @license 	MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
+$this->start('panelContent');
 ?>
 <h2><?php echo __d('debug_kit_ex', 'Cache Logs')?></h2>
 <?php if (isset($content['stats'])) : ?>
@@ -104,4 +104,6 @@
 	</div>
 <?php else :
 	echo $this->Toolbar->message('Warning', __d('debug_kit_ex', 'No configured cache'));
-endif; ?>
+endif;
+
+$this->end('panelContent');

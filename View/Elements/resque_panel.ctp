@@ -16,7 +16,7 @@
  * @license 	MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-
+$this->start('panelContent');
 ?>
 <h2><?php echo __d('debug_kit_ex', 'Resque Jobs Logs')?></h2>
 <?php if (!empty($content)) : ?>
@@ -67,4 +67,6 @@
 	<div class="alert-error">CakeResque plugin not found</div>
 <?php else:
 	echo $this->Toolbar->message('', __d('debug_kit_ex', 'No jobs activities'));
-endif; ?>
+endif;
+
+$this->end('panelContent');
