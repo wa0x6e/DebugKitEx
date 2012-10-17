@@ -10,7 +10,7 @@
  * PHP 5
  * CakePHP 2.2 and older
  *
- * Copyright (c) 2012, Wan Chen (Kamisama)
+ * Copyright (c) 2012, Wan Qi Chen (Kamisama)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
@@ -37,6 +37,8 @@ class ResquePanel extends DebugPanel
 
 	public $priority = 0;
 
+	public $css = array('DebugKitEx.debug_kit_ex.css');
+
 	/**
 	 * Prepare output vars before Controller Rendering.
 	 *
@@ -44,6 +46,10 @@ class ResquePanel extends DebugPanel
 	 * @return void
 	 */
 	public function beforeRender(Controller $controller) {
+		if (!class_exists('CakeResque') || !property_exists('CakeResque', 'logs')) {
+			return null;
+		}
+
 		$logs =  CakeResque::$logs;
 		$count = 0;
 		foreach ($logs as $l) {

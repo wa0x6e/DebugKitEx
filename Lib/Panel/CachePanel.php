@@ -10,7 +10,7 @@
  * PHP 5
  * CakePHP 2.2 and older
  *
- * Copyright (c) 2012, Wan Chen aka Kamisama
+ * Copyright (c) 2012, Wan Qi Chen
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
