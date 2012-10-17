@@ -47,20 +47,20 @@ To load the extended panel, edit your debugkit call (in your *AppController.php*
 	));
 ```
 
-Enabling each panels requires some additionals step, since logging functions are not available in the core.
+Enabling **each panels requires some additionals step**, since each panels depends on an external tools/plugin.
 
-Available panels
---
+## Available panels
 
-###Cache###
+###Cache Panel###
 ![Cache Panel](https://raw.github.com/kamisama/DebugKitEx/gh-pages/img/cache-panel.png)
 
 ####Install the custom cache adapter####
 
-Since redefining core class in a plugin is impossible, you have to drop the `app/Plugin/DebugKitEx/Lib/Cache/Cache.php` file in `app/Lib/Cache/` (create the folder if necessary). You application will use this Cache class instead of the one in the core, the main benefit is that you don't need to change anything in your calls to the Cache class.  
+Since redefining core class in a plugin is impossible, you have to drop the `app/Plugin/DebugKitEx/Lib/Cache/Cache.php` file in `app/Lib/Cache/` (create the folder if necessary).  
+You application will use this Cache class instead of the one in the core, the main benefit is that you don't need to change anything in your calls to the Cache class.  
 This class implements additionals method to logs the cache activities, the cache panel will not works without it.
 
-###NoSql###
+###NoSql Panel###
 ![NoSql Panel](https://raw.github.com/kamisama/DebugKitEx/gh-pages/img/nosql-panel.png)
 
 
@@ -68,13 +68,16 @@ This class implements additionals method to logs the cache activities, the cache
 
 The NoSql panel will only works with one of my other plugin, see its [page](https://github.com/kamisama/CakePHP-NoSQL-Datasource) on how to install and use it.
 
-###Resque###
+###Resque Panel###
 
 ![Cache Panel](https://raw.github.com/kamisama/DebugKitEx/gh-pages/img/resque-panel.png)
 
 To use with [CakeResque](http://cakeresque.kamisama.me/)
 
 ##Changelog##
+
+####Ver 2.2.8 (2012-10-17)####
+* Gracefully handle errors when panels dependencies are not found
 
 ####Ver 2.2.7 (2012-10-16)####
 * Fix Repository file structure
