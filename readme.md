@@ -17,7 +17,7 @@ Install
 
 ###Install the plugin###
 
-Add this plugin to the list that CakePHP loads.
+Add the plugin to the list that CakePHP loads.
 
 ```php
 CakePlugin::load(array('DebugKit','DebugKitEx'));
@@ -41,7 +41,7 @@ Available panels
 
 ####Install the custom cache adapter####
 
-Since redefining core class in a plugin is impossible, you have to drop the *Lib/Cache/Cache.php* file in you *Lib/Cache/* directory (create it if necessary). You application will use this Cache class instead of the one in the core, the main benefit is that you don't need to change anything in your calls to the Cache class.  
+Since redefining core class in a plugin is impossible, you have to drop the *app/Plugin/DebugKitEx/Lib/Cache/Cache.php* file in *app/Lib/Cache/* (create the folder if necessary). You application will use this Cache class instead of the one in the core, the main benefit is that you don't need to change anything in your calls to the Cache class.  
 This class implements additionals method to logs the cache activities, the cache panel will not works without it.
 
 ###NoSql###
@@ -59,6 +59,9 @@ The NoSql panel will only works with one of my other plugin, see its [page](http
 To use with [CakeResque](http://cakeresque.kamisama.me/)
 
 ##Changelog##
+
+####Ver 2.2.7 (2012-10-16)####
+* Fix Repository file structure
 
 ####Ver 2.2.6 (2012-10-01)####
 * New UI for Resque Panel

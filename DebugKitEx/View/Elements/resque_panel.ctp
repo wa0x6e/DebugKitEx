@@ -64,5 +64,5 @@
 	</div>
 	<?php endforeach; ?>
 <?php else:
-	echo $this->Toolbar->message('Warning', __d('debug_kit_ex', 'No jobs'));
+	echo $this->Toolbar->message('', __d('debug_kit_ex', 'No jobs activities'));
 endif; ?>
