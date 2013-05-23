@@ -30,28 +30,26 @@
  * @package DebugKitEx
  * @subpackage DebugKitEx.vendors
  */
-class CachePanel extends DebugPanel
-{
+class CachePanel extends DebugPanel {
 
 	public $plugin = 'DebugKitEx';
 
-	/**
-	 * Not used yet
-	 *
-	 * Since 2.2.4
-	 * @var int
-	 */
+/**
+ * Not used yet
+ *
+ * Since 2.2.4
+ * @var int
+ */
 	public $priority = 0;
 
 	public $css = array('DebugKitEx.debug_kit_ex.css');
 
-
-	/**
-	 * Prepare output vars before Controller Rendering.
-	 *
-	 * @param object $controller Controller reference.
-	 * @return void
-	 */
+/**
+ * Prepare output vars before Controller Rendering.
+ *
+ * @param object $controller Controller reference.
+ * @return void
+ */
 	public function beforeRender(Controller $controller) {
 		$configs = Cache::configured();
 		$content = array();
@@ -60,8 +58,7 @@ class CachePanel extends DebugPanel
 			$content['stats'] = Cache::getLogs();
 		}
 
-		foreach($configs as $config)
-		{
+		foreach ($configs as $config) {
 			$engine = Cache::settings($config);
 
 			if (method_exists('Cache', 'getLogs')) {
@@ -77,9 +74,9 @@ class CachePanel extends DebugPanel
 
 		if ($this->priority > 0 && isset($content['stats'])) {
 			if ($content['stats']['count'] === 0) {
-				$this->title = __d('debug_kit_ex', '<b>0</b> cache');
+				$this->title = __d('debug_kit_ex', '<b>0</b> cached');
 			} else {
-				$this->title = __d('debug_kit_ex', '<b>%dms / %d</b> cache', round($content['stats']['time']), $content['stats']['count']['total']);
+				$this->title = __d('debug_kit_ex', '<b>%d ms / %d</b> cached', number_format($content['stats']['time']), $content['stats']['count']['total']);
 			}
 		}
 

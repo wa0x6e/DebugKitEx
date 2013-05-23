@@ -30,8 +30,7 @@
  * @package DebugKitEx
  * @subpackage DebugKitEx.vendors
  */
-class ResquePanel extends DebugPanel
-{
+class ResquePanel extends DebugPanel {
 
 	public $plugin = 'DebugKitEx';
 
@@ -39,18 +38,18 @@ class ResquePanel extends DebugPanel
 
 	public $css = array('DebugKitEx.debug_kit_ex.css');
 
-	/**
-	 * Prepare output vars before Controller Rendering.
-	 *
-	 * @param object $controller Controller reference.
-	 * @return void
-	 */
+/**
+ * Prepare output vars before Controller Rendering.
+ *
+ * @param object $controller Controller reference.
+ * @return void
+ */
 	public function beforeRender(Controller $controller) {
 		if (!class_exists('CakeResque') || !property_exists('CakeResque', 'logs')) {
 			return null;
 		}
 
-		$logs =  CakeResque::$logs;
+		$logs = CakeResque::$logs;
 		$count = 0;
 		foreach ($logs as $l) {
 			$count += count($l);
