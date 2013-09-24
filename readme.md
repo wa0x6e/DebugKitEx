@@ -30,6 +30,11 @@ Either with `git clone` or by downloading the archive.
 
 [Download](https://github.com/kamisama/DebugKitEx/zipball/master) the latest release, and uncompress it in `app/Plugin`. Make sure the plugin folder is named *DebugKitEx*.
 
+##### With composer
+
+Add `"kamisama/debug-kit-ex": "2.2.*""` to your composer dependencies, then run
+
+	composer install
 
 #### Load the plugin into CakePHP
 
@@ -75,6 +80,9 @@ The NoSql panel will only works with one of my other plugin, see its [page](http
 To use with [CakeResque](http://cakeresque.kamisama.me/)
 
 ##Changelog##
+
+####Ver 2.2.9 (2013-09-24)####
+* Add plugin to packagist
 
 ####Ver 2.2.8 (2012-10-17)####
 * Gracefully handle errors when panels dependencies are not found
