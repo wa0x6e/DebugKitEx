@@ -1,5 +1,5 @@
 {
-	"name": "kamisama/DebugKitEx",
+	"name": "kamisama/debug-kit-ex",
 	"description" : "An extension for CakePHP DebugKit plugin",
 	"keywords": ["cakephp", "debugkit"],
 	"homepage": "https://github.com/kamisama/DebugKitEx",
