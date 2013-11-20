@@ -48,7 +48,7 @@ To load the extended panel, edit your debugkit call (in your *AppController.php*
 
 ```php	
 	var $components = array('DebugKit.Toolbar' => array(
-   	 'panels' => array('DebugKit.Cache', 'DebugKitEx.Nosql', 'DebugKitEx.Resque') // Load only what you want
+   	 'panels' => array('DebugKitEx.Cache', 'DebugKitEx.Nosql', 'DebugKitEx.Resque') // Load only what you want
 	));
 ```
 
